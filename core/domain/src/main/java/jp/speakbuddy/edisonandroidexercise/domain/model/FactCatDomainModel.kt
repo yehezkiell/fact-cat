@@ -3,10 +3,10 @@ package jp.speakbuddy.edisonandroidexercise.domain.model
 import jp.speakbuddy.edisonandroidexercise.data.model.FactCatDataModel
 
 data class FactCatDomainModel(
-    val fact: String,
-    val length: Int
+    val fact: String, val length: Int, val containsCats: Boolean
 )
 
-fun FactCatDataModel.toDomainModel() = FactCatDomainModel(fact, length)
+fun FactCatDataModel.toDomainModel() =
+    FactCatDomainModel(fact, length, fact.contains("cats", ignoreCase = true))
 
 

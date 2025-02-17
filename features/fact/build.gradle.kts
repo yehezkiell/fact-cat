@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

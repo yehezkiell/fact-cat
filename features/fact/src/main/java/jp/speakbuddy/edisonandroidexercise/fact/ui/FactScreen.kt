@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jp.speakbuddy.edisonandroidexercise.design_system.components.ErrorView
+import jp.speakbuddy.edisonandroidexercise.design_system.components.LoadingView
 import jp.speakbuddy.edisonandroidexercise.design_system.theme.EdisonAndroidExerciseTheme
 import jp.speakbuddy.edisonandroidexercise.fact.model.FactCatDetail
 
@@ -31,8 +32,12 @@ fun FactScreen(
 
     when (detail) {
         is FactCatDetail.Success -> {
+            val uiModel = detail.uiModel
+
             FactScreenContent(
-                fact = detail.uiModel.fact,
+                fact = uiModel.fact,
+                length = uiModel.length,
+                containsCatsString = uiModel.containsCats,
                 isLoading = isLoading,
                 onUpdateFactClick = { viewModel.update() }
             )
@@ -47,13 +52,17 @@ fun FactScreen(
             )
         }
 
-        is FactCatDetail.None -> {}
+        is FactCatDetail.InitialLoading -> {
+            LoadingView()
+        }
     }
 }
 
 @Composable
 private fun FactScreenContent(
     fact: String,
+    length: Int,
+    containsCatsString: Boolean,
     isLoading: Boolean,
     onUpdateFactClick: () -> Unit
 ) {
@@ -73,10 +82,24 @@ private fun FactScreenContent(
             style = MaterialTheme.typography.titleLarge
         )
 
+        if (containsCatsString) {
+            Text(
+                text = "Multiple cats found!",
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+
         Text(
             text = fact,
             style = MaterialTheme.typography.bodyLarge
         )
+
+        if (length > 100) {
+            Text(
+                text = length.toString(),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
 
         Button(
             onClick = onUpdateFactClick,
@@ -99,9 +122,12 @@ private fun FactScreenContent(
 @Composable
 private fun FactScreenPreview() {
     EdisonAndroidExerciseTheme {
+        val fact = "Preview fact text"
         FactScreenContent(
             fact = "Preview fact text",
+            length = fact.length,
             isLoading = false,
+            containsCatsString = true,
             onUpdateFactClick = {}
         )
     }

@@ -1,7 +1,7 @@
 package jp.speakbuddy.edisonandroidexercise.fact.model
 
 data class FactCatUiState(
-    val detail: FactCatDetail = FactCatDetail.None,
+    val detail: FactCatDetail = FactCatDetail.InitialLoading,
     val isLoading: Boolean = false
 )
 
@@ -14,5 +14,5 @@ sealed interface FactCatDetail {
         val errorMessage: String
     ) : FactCatDetail
 
-    object None : FactCatDetail
+    data object InitialLoading : FactCatDetail
 }
