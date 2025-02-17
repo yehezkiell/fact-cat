@@ -1,10 +1,13 @@
 plugins {
-    id("com.android.application") version "8.7.3" apply false
-    id("com.android.library") version "8.7.3" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.24" apply false
-    id("com.google.dagger.hilt.android") version "2.44.2" apply false
-    id("com.google.protobuf") version "0.9.4" apply false
-
-    kotlin("jvm") version "1.9.24"
-    kotlin("plugin.serialization") version "1.9.24"
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.hilt.gradle) apply false
+    alias(libs.plugins.kapt) apply false
+    alias(libs.plugins.protobuf.gradle) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.secrets) apply false
 }
