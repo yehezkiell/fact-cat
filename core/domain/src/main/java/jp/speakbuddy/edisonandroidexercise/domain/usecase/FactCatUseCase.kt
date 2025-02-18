@@ -23,7 +23,7 @@ class FactCatUseCaseImpl @Inject constructor(private val factCatRepository: Fact
                 }
 
                 is DataResult.Error -> {
-                    DomainResult.Error(it.error.message ?: "")
+                    DomainResult.Error(it.error.message ?: "Something went wrong!")
                 }
             }
         }

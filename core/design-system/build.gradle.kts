@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
 
     implementation(libs.activity.compose)
     implementation(libs.compose.ui)

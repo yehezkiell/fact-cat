@@ -37,6 +37,8 @@ android {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:util"))
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.retrofit)

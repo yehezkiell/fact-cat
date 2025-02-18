@@ -41,8 +41,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    implementation(libs.material)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.espresso)
+    testImplementation(project(":core:testing"))
+    testImplementation(libs.kotlinx.coroutines.test)
+    // Mockk
+    testImplementation(libs.mockk)
 }

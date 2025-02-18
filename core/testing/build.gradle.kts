@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt.gradle)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "jp.speakbuddy.edisonandroidexercise.util"
+    namespace = "jp.speakbuddy.edisonandroidexercise.testing"
     compileSdk = 35
 
     defaultConfig {
@@ -35,12 +33,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:util"))
+    implementation(libs.datastore)
 
-    implementation(libs.core.ktx)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.espresso)
-
+    implementation(libs.junit)
+    implementation(libs.kotlinx.coroutines.test)
+    // Mockk
+    implementation(libs.mockk)
 }
