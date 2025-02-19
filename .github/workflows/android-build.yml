@@ -34,4 +34,5 @@ jobs:
                   path: |
                       **/build/outputs/
                       !**/build/outputs/logs/
+                      **/*composable.txt
                   retention-days: 14
