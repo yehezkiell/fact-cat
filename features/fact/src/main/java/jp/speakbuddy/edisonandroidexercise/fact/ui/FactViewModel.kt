@@ -13,7 +13,6 @@ import jp.speakbuddy.edisonandroidexercise.fact.model.FactCatUiState
 import jp.speakbuddy.edisonandroidexercise.fact.model.ToastState
 import jp.speakbuddy.edisonandroidexercise.fact.model.toUiModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first

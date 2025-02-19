@@ -13,12 +13,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jp.speakbuddy.edisonandroidexercise.util.dispatchers.CoroutineDispatchers
-import jp.speakbuddy.edisonandroidexercise.util.dispatchers.CoroutineDispatchersProvider
-import kotlinx.coroutines.CloseableCoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import java.util.prefs.Preferences
 import javax.inject.Singleton
 
 private const val FACT_PREFERENCES = "fact_preferences"

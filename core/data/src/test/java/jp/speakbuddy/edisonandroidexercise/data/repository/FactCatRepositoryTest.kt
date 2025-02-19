@@ -4,13 +4,10 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
-import jp.speakbuddy.edisonandroidexercise.data.model.FactCatDataModel
 import jp.speakbuddy.edisonandroidexercise.datastore.FactCatDataStore
 import jp.speakbuddy.edisonandroidexercise.network.FactCatNetworkDataSource
 import jp.speakbuddy.edisonandroidexercise.network.service.FactResponse
 import jp.speakbuddy.edisonandroidexercise.testing.dispatchers.CoroutineTestDispatchersProvider
-import jp.speakbuddy.edisonandroidexercise.util.dispatchers.CoroutineDispatchers
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
