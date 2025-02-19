@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt.gradle)
-    alias(libs.plugins.protobuf.gradle)
     alias(libs.plugins.ksp)
     alias(libs.plugins.secrets)
 }
@@ -53,7 +52,6 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    implementation(libs.protobuf.kotlin)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit.serialization)
     implementation(libs.okhttp)
