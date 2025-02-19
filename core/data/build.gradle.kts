@@ -43,9 +43,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.retrofit)
 
-    implementation(libs.core.ktx)
-    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.espresso)
+    testImplementation(project(":core:testing"))
+    testImplementation(libs.kotlinx.coroutines.test)
+    // Mockk
+    testImplementation(libs.mockk)
 }

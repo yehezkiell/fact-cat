@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,18 +19,18 @@ class FactCatDataStore @Inject constructor(
     }
 
     suspend fun saveFact(fact: String) {
-        try {
-            dataStore.edit { preferences ->
-                preferences[FACT_KEY] = fact
-            }
-        } catch (e: Throwable) {
-            println(e)
+        dataStore.edit { preferences ->
+            preferences[FACT_KEY] = fact
         }
     }
 
     fun getFact(): Flow<String?> {
-        return dataStore.data.map { preferences ->
-            preferences[FACT_KEY]
+        return try {
+            dataStore.data.map { preferences ->
+                preferences[FACT_KEY]
+            }
+        } catch (e: Throwable) {
+            flowOf(null)
         }
     }
 }

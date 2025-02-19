@@ -34,7 +34,6 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(libs.datastore)
 
     implementation(libs.junit)
     implementation(libs.kotlinx.coroutines.test)

@@ -6,6 +6,7 @@ import jp.speakbuddy.edisonandroidexercise.datastore.FactCatDataStore
 import jp.speakbuddy.edisonandroidexercise.network.FactCatNetworkDataSource
 import jp.speakbuddy.edisonandroidexercise.util.dispatchers.CoroutineDispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +15,6 @@ import javax.inject.Inject
 sealed interface DataResult<out T> {
     data class Success<T>(val data: T) : DataResult<T>
     data class Error<T>(val error: Throwable) : DataResult<T>
-
 }
 
 interface FactCatRepository {
@@ -29,7 +29,6 @@ class FactCatRepositoryImpl @Inject constructor(
 
     override fun getFact(isFirstOpen: Boolean): Flow<DataResult<FactCatDataModel>> = flow {
         val localData = factCatDataStore.getFact().firstOrNull()
-
         if (localData != null && isFirstOpen) {
             emit(DataResult.Success(localData.toDataModel()))
         } else {
@@ -44,5 +43,7 @@ class FactCatRepositoryImpl @Inject constructor(
                 }
             )
         }
+    }.catch {
+        emit(DataResult.Error(it))
     }.flowOn(dispatchers.io)
 }

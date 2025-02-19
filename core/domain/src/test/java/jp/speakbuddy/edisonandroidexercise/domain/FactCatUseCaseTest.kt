@@ -9,21 +9,14 @@ import jp.speakbuddy.edisonandroidexercise.data.repository.FactCatRepository
 import jp.speakbuddy.edisonandroidexercise.domain.usecase.FactCatUseCase
 import jp.speakbuddy.edisonandroidexercise.domain.usecase.FactCatUseCaseImpl
 import jp.speakbuddy.edisonandroidexercise.domain.util.DomainResult
-import jp.speakbuddy.edisonandroidexercise.testing.rule.UnconfinedTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class FactCatUseCaseTest {
-
-    @get:Rule
-    val coroutineScopeRule = UnconfinedTestRule()
 
     private lateinit var useCase: FactCatUseCase
 
