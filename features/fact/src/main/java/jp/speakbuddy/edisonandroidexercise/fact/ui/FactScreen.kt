@@ -1,5 +1,6 @@
 package jp.speakbuddy.edisonandroidexercise.fact.ui
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,10 +63,13 @@ fun FactScreen(
         snackbarHostState
     )
 
+    //for configuration change
+    val scrollState = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
+
     Surface(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(scrollState)
     ) {
         when (detail) {
             is FactCatDetail.Success -> {
