@@ -24,10 +24,20 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = System.getenv("KEYSTORE_ALIAS") ?: ""
+            keyPassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            storeFile = file("${project.rootDir}/keystore/upload-keystore.jks")  // Updated path
+            storePassword = System.getenv("STORE_PASSWORD") ?: ""
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")  // Kotlin DSL syntax
         }
     }
     compileOptions {
