@@ -48,6 +48,7 @@ composeCompiler {
 dependencies {
     implementation(project(":core:design-system"))
     implementation(project(":core:domain"))
+    implementation(project(":core:subviewmodel"))
 
     implementation(libs.core.ktx)
     implementation(libs.androidx.hilt.navigation.compose)

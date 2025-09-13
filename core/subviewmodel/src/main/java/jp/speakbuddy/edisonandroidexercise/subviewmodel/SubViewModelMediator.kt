@@ -1,0 +1,3 @@
+package jp.speakbuddy.edisonandroidexercise.subviewmodel
+
+interface SubViewModelMediator

@@ -12,6 +12,9 @@ import jp.speakbuddy.edisonandroidexercise.fact.model.FactCatUiModel
 import jp.speakbuddy.edisonandroidexercise.fact.model.FactCatUiState
 import jp.speakbuddy.edisonandroidexercise.fact.model.ToastState
 import jp.speakbuddy.edisonandroidexercise.fact.model.toUiModel
+import jp.speakbuddy.edisonandroidexercise.fact.ui.subviewmodel.FactMediator
+import jp.speakbuddy.edisonandroidexercise.fact.ui.subviewmodel.FactSubViewModelDelegate
+import jp.speakbuddy.edisonandroidexercise.fact.ui.subviewmodel.FactSubViewModelDelegateImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,8 +27,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FactViewModel @Inject constructor(
-    private val usecase: FactCatUseCase
-) : ViewModel() {
+    private val usecase: FactCatUseCase,
+    private val subViewModelDelegate: FactSubViewModelDelegateImpl
+) : ViewModel(),
+    FactMediator,
+    FactSubViewModelDelegate by subViewModelDelegate {
 
     private val _uiState = MutableStateFlow(FactCatUiState())
     val uiState = _uiState
@@ -36,6 +42,10 @@ class FactViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             FactCatUiState()
         )
+
+    init {
+        registerSubViewModel(viewModelScope = viewModelScope, mediator = this)
+    }
 
     fun updateFact() {
         fetchFact(false)

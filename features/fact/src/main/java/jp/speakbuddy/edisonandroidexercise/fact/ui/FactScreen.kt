@@ -25,6 +25,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -53,6 +54,7 @@ fun FactScreen(
     snackbarHostState: SnackbarHostState = rememberSnackbarHostState()
 ) {
     val data = viewModel.uiState.collectAsStateWithLifecycle()
+    val catAge = viewModel.catManipulatorSubViewModel.uiState.collectAsState()
     val detail = data.value.detail
     val isLoading = data.value.isLoading
     val toasterState = data.value.toasterState
@@ -77,9 +79,11 @@ fun FactScreen(
                 FactScreenContent(
                     fact = uiModel.fact,
                     length = uiModel.length,
+                    catAge = catAge.value,
                     containsCatsString = uiModel.containsCats,
                     isLoading = isLoading,
-                    onUpdateFactClick = { viewModel.updateFact() }
+                    onUpdateFactClick = { viewModel.updateFact() },
+                    onRandomCatAgeClick = { viewModel.catManipulatorSubViewModel.randomize() }
                 )
             }
 
@@ -124,9 +128,11 @@ private fun SnackBarError(
 private fun FactScreenContent(
     fact: String,
     length: Int,
+    catAge: Int,
     containsCatsString: Boolean,
     isLoading: Boolean,
     onUpdateFactClick: () -> Unit,
+    onRandomCatAgeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -156,22 +162,25 @@ private fun FactScreenContent(
                 color = MaterialTheme.colorScheme.onSurface
             )
 
-            FactLength(length)
+            TextCounter(text = "Fact Length", count = length)
+
+            TextCounter(text = "Age: ", count = catAge)
 
             UpdateButton(isLoading, onUpdateFactClick)
+
+            UpdateCatAge(isLoading, onRandomCatAgeClick)
         }
     }
 }
 
 @Composable
-private fun FactLength(length: Int) {
-    if (length > 100) {
-        Text(
-            text = "Fact length: $length",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
+private fun TextCounter(text: String, count: Int) {
+    Text(
+        text = "$text: $count",
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+
 }
 
 @Composable
@@ -207,6 +216,35 @@ private fun CatCircleImage() {
                 shape = CircleShape
             )
     )
+}
+
+@Composable
+private fun UpdateCatAge(isLoading: Boolean, onRandomCatAgeClick: () -> Unit) {
+    Button(
+        onClick = onRandomCatAgeClick,
+        enabled = !isLoading,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+        )
+    ) {
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                color = MaterialTheme.colorScheme.onPrimary,
+                strokeWidth = 2.dp
+            )
+        } else {
+            Text(
+                text = "Random Cat Age",
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
+    }
 }
 
 @Composable
@@ -251,9 +289,11 @@ private fun FactScreenPreview() {
             FactScreenContent(
                 fact = fact,
                 length = fact.length,
+                catAge = 12,
                 isLoading = false,
                 containsCatsString = true,
-                onUpdateFactClick = {}
+                onUpdateFactClick = {},
+                onRandomCatAgeClick = {}
             )
         }
     }
