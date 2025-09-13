@@ -27,5 +27,4 @@ class FactCatUseCaseImpl @Inject constructor(private val factCatRepository: Fact
                 }
             }
         }
-
 }

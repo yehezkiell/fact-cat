@@ -5,7 +5,8 @@ import jp.speakbuddy.edisonandroidexercise.domain.model.FactCatDomainModel
 data class FactCatUiModel(
     val fact: String,
     val length: Int,
-    val containsCats: Boolean
+    val containsCats: Boolean,
+    val showLength: Boolean
 )
 
-fun FactCatDomainModel.toUiModel() = FactCatUiModel(fact, length, containsCats)
+fun FactCatDomainModel.toUiModel() = FactCatUiModel(fact, length, containsCats, showLength)
